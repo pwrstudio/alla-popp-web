@@ -8,7 +8,7 @@
   </div>
 
   <div class="portrait">
-    <img src="/alla-popp-portrait.png" allt="Alla Popp" />
+    <img src="/alla-popp-portrait.png" alt="Alla Popp" />
   </div>
 
   <div class="menu left">
@@ -44,6 +44,18 @@
   body,
   html {
     font-family: "Alte Haas Grotesk";
+    font-size: 30px;
+    letter-spacing: -0.04em;
+    line-height: 1em;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
   }
 
   .logo {
@@ -122,8 +134,7 @@
     .menu-item {
       display: inline-block;
       color: white;
-      background: #505050;
-      font-size: 30px;
+      background: #8c8c8b;
       text-decoration: none;
       letter-spacing: -0.05em;
       padding: 0 4px;
