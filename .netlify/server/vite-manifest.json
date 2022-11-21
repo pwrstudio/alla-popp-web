@@ -42,7 +42,19 @@
     "src": "src/routes/archive/+page.svelte",
     "isEntry": true,
     "imports": [
-      "_index.js"
+      "_index.js",
+      "_sanity.js"
+    ],
+    "css": [
+      "_app/immutable/assets/_page-a822b05e.css"
+    ]
+  },
+  "src/routes/archive/+page.ts": {
+    "file": "entries/pages/archive/_page.ts.js",
+    "src": "src/routes/archive/+page.ts",
+    "isEntry": true,
+    "imports": [
+      "_sanity.js"
     ]
   },
   "src/routes/archive/[slug]/+page.svelte": {
@@ -50,7 +62,19 @@
     "src": "src/routes/archive/[slug]/+page.svelte",
     "isEntry": true,
     "imports": [
-      "_index.js"
+      "_index.js",
+      "_sanity.js"
+    ],
+    "css": [
+      "_app/immutable/assets/_page-a822b05e.css"
+    ]
+  },
+  "src/routes/archive/[slug]/+page.ts": {
+    "file": "entries/pages/archive/_slug_/_page.ts.js",
+    "src": "src/routes/archive/[slug]/+page.ts",
+    "isEntry": true,
+    "imports": [
+      "_sanity.js"
     ]
   },
   "src/routes/cv/+page.svelte": {
@@ -58,11 +82,23 @@
     "src": "src/routes/cv/+page.svelte",
     "isEntry": true,
     "imports": [
-      "_index.js"
+      "_index.js",
+      "_sanity.js"
+    ]
+  },
+  "src/routes/cv/+page.ts": {
+    "file": "entries/pages/cv/_page.ts.js",
+    "src": "src/routes/cv/+page.ts",
+    "isEntry": true,
+    "imports": [
+      "_sanity.js"
     ]
   },
   "_index.js": {
     "file": "chunks/index.js"
+  },
+  "_sanity.js": {
+    "file": "chunks/sanity.js"
   },
   ".svelte-kit/build/hooks.js": {
     "file": "chunks/hooks.js",

@@ -6,7 +6,7 @@ export const handler = init({
 	assets: new Set(["alla-popp-portrait.png","favicon.png","fonts/AlteHaasGrotesk_Bold.woff","fonts/AlteHaasGrotesk_Bold.woff2"]),
 	mimeTypes: {".png":"image/png",".woff":"font/woff",".woff2":"font/woff2"},
 	_: {
-		entry: {"file":"_app/immutable/start-f6ed4638.js","imports":["_app/immutable/start-f6ed4638.js","_app/immutable/chunks/index-70654786.js"],"stylesheets":[],"fonts":[]},
+		entry: {"file":"_app/immutable/start-d014e8bf.js","imports":["_app/immutable/start-d014e8bf.js","_app/immutable/chunks/index-7a9129a9.js"],"stylesheets":[],"fonts":[]},
 		nodes: [
 			() => import('../server/nodes/0.js'),
 			() => import('../server/nodes/1.js'),

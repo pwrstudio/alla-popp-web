@@ -17,11 +17,16 @@
 		"svelte-preprocess": "^4.10.6",
 		"tslib": "^2.3.1",
 		"typescript": "^4.7.4",
-		"vite": "^3.1.0"
+		"vite": "^3.1.0",
+		"node-sass": "^8.0.0",
+		"@sveltejs/adapter-netlify": "^1.0.0-next.84"
 	},
 	"type": "module",
 	"dependencies": {
-		"@sveltejs/adapter-netlify": "^1.0.0-next.84",
-		"node-sass": "^8.0.0"
+		"@sanity/block-content-to-html": "^2.0.0",
+		"@sanity/client": "^3.4.1",
+		"@sanity/image-url": "^1.0.1",
+		"get-video-id": "^3.6.5",
+		"lodash": "^4.17.21"
 	}
 }
