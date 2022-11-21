@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import Back from "$lib/graphics/back.svelte"
   import { urlFor } from "$lib/modules/sanity.js"
   export let data
@@ -17,7 +17,10 @@
         <span class="short-description">{work.shortDescription}</span>
       </div>
       <div class="image">
-        <img src={urlFor(work.posterImage?.asset).url()} alt={work.title} />
+        <img
+          src={urlFor(work.posterImage?.asset).quality(90).width(800).url()}
+          alt={work.title}
+        />
       </div>
     </a>
   {/each}
@@ -57,7 +60,7 @@
     .work {
       width: 50%;
       padding-right: 20px;
-      margin-bottom: 20px;
+      margin-bottom: 40px;
 
       .text {
         color: white;

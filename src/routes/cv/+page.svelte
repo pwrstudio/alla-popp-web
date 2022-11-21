@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import Back from "$lib/graphics/back.svelte"
   import { renderBlockText } from "$lib/modules/sanity.js"
   export let data

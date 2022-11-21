@@ -1,7 +1,13 @@
-<script>
+<script lang="ts">
   import Back from "$lib/graphics/back.svelte"
   import { renderBlockText, urlFor } from "$lib/modules/sanity.js"
-  export let data
+
+  interface Work {
+    title: string
+    shortDescription: string
+  }
+
+  export let data: Work
 </script>
 
 <header>
@@ -10,11 +16,14 @@
 </header>
 
 <div class="work">
-  <h2>{data.title}</h2>
-  <p>{data.shortDescription}</p>
+  <h1>{data.title}</h1>
+  <span class="short-description">{data.shortDescription}</span>
   <!-- IMAGE -->
   <div class="image">
-    <img src={urlFor(data.posterImage?.asset).url()} />
+    <img
+      src={urlFor(data.posterImage?.asset).quality(90).width(800).url()}
+      alt={data.title}
+    />
   </div>
   {#if data.content?.content}
     <div>
@@ -45,10 +54,23 @@
     width: 50%;
     margin-top: 20px;
 
+    h1 {
+      font-size: 30px;
+      color: white;
+      background: #8c8c8b;
+      display: inline-block;
+    }
+
     h2,
     p {
       color: white;
       background: #8c8c8b;
+    }
+
+    .short-description {
+      color: white;
+      background: #8c8c8b;
+      font-size: 16px;
     }
 
     h2 {

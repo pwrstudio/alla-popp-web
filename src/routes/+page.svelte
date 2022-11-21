@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import Logo from "$lib/graphics/logo.svelte"
 </script>
 
