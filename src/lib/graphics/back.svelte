@@ -7,29 +7,6 @@
   height="40"
 >
   <defs>
-    <style>
-      .cls-1,
-      .cls-2 {
-        fill: none;
-      }
-
-      .cls-3 {
-        clip-path: url(#clippath);
-      }
-
-      .cls-4 {
-        fill: #fff;
-      }
-
-      .cls-5 {
-        fill: #8c8c8b;
-      }
-
-      .cls-2 {
-        stroke: #fff;
-        stroke-width: 38px;
-      }
-    </style>
     <clipPath id="clippath">
       <rect class="cls-1" width="137.6" height="127.6" />
     </clipPath>
@@ -50,3 +27,29 @@
     </g>
   </g>
 </svg>
+
+<style lang="scss">
+  @import "src/lib/style/variables.scss";
+
+  .cls-1,
+  .cls-2 {
+    fill: none;
+  }
+
+  .cls-3 {
+    clip-path: url(#clippath);
+  }
+
+  .cls-4 {
+    fill: #fff;
+  }
+
+  .cls-5 {
+    fill: $grey;
+  }
+
+  .cls-2 {
+    stroke: $white;
+    stroke-width: 38px;
+  }
+</style>

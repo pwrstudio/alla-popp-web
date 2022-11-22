@@ -1,17 +1,15 @@
 <script lang="ts">
-  import Back from "$lib/graphics/back.svelte"
+  import { fade } from "svelte/transition"
+  import Header from "$lib/components/Header.svelte"
   import { urlFor } from "$lib/modules/sanity.js"
   export let data
 </script>
 
-<header>
-  <div class="section-title">ARCHIVE</div>
-  <a class="back" href="/"><Back /></a>
-</header>
+<Header title="ARCHIVE" link="/" />
 
-<div class="work-container">
+<div class="archive-container">
   {#each data.works as work}
-    <a class="work" href={"/archive/" + work.slug?.current}>
+    <a class="archive-item" href={"/archive/" + work.slug?.current} in:fade>
       <div class="text">
         <span class="title">{work.title},</span>
         <span class="short-description">{work.shortDescription}</span>
@@ -27,57 +25,42 @@
 </div>
 
 <style lang="scss">
-  header {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    user-select: none;
+  @import "src/lib/style/variables.scss";
 
-    .section-title {
-      background: #8c8c8b;
-      color: white;
-      padding: 4px;
-    }
-
-    .back {
-      svg {
-        height: 80px;
-        background: red;
-      }
-    }
-  }
-
-  img {
-    width: 400px;
-  }
-
-  .work-container {
+  .archive-container {
     width: 100%;
     display: flex;
     flex-wrap: wrap;
-    margin-top: 40px;
+    margin-top: $MARGIN * 2;
 
-    .work {
+    .archive-item {
       width: 50%;
-      padding-right: 20px;
+      padding-right: $MARGIN;
       margin-bottom: 40px;
+      user-select: none;
+
+      @include screen-size("small") {
+        width: 100%;
+      }
 
       .text {
-        color: white;
-        line-height: 0.55em;
-        margin-bottom: 20px;
+        color: $white;
+        margin-bottom: $MARGIN;
+        line-height: $FONT_SIZE_SMALL;
 
         .title {
           text-transform: uppercase;
-          background: #8c8c8b;
-          padding: 2px;
-          margin-right: -8px;
+          background: $grey;
+          font-size: $FONT_SIZE_LARGE;
+          line-height: $FONT_SIZE_LARGE;
+          display: inline;
         }
 
         .short-description {
-          font-size: 16px;
-          background: #8c8c8b;
-          padding: 2px;
+          font-size: $FONT_SIZE_SMALL;
+          line-height: $FONT_SIZE_SMALL;
+          background: $grey;
+          display: inline;
         }
       }
 
@@ -85,6 +68,7 @@
         width: 100%;
         aspect-ratio: 16 / 9;
         line-height: 0;
+        background: $grey;
 
         img {
           object-fit: fill;

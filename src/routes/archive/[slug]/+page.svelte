@@ -1,92 +1,95 @@
 <script lang="ts">
-  import Back from "$lib/graphics/back.svelte"
-  import { renderBlockText, urlFor } from "$lib/modules/sanity.js"
+  import { fade } from "svelte/transition"
+  import Header from "$lib/components/Header.svelte"
+  import VideoPlayer from "$lib/components/VideoPlayer.svelte"
+  import { renderBlockText } from "$lib/modules/sanity.js"
 
   interface Work {
     title: string
     shortDescription: string
+    videoUrl: string
   }
 
   export let data: Work
+
+  console.log(data)
 </script>
 
-<header>
-  <div class="section-title">ARCHIVE</div>
-  <a class="back" href="/archive"><Back /></a>
-</header>
+<Header title="ARCHIVE" link="/archive" titleLink="/archive" />
 
 <div class="work">
-  <h1>{data.title}</h1>
-  <span class="short-description">{data.shortDescription}</span>
+  <div class="text" in:fade={{ delay: 200 }}>
+    <span class="title">{data.title},</span>
+    <span class="short-description">{data.shortDescription}</span>
+  </div>
   <!-- IMAGE -->
-  <div class="image">
-    <img
-      src={urlFor(data.posterImage?.asset).quality(90).width(800).url()}
-      alt={data.title}
-    />
+  <div class="video" in:fade={{ delay: 400 }}>
+    <VideoPlayer url={data.videoUrl} poster={data.posterImage} />
   </div>
   {#if data.content?.content}
-    <div>
+    <div class="work-content" in:fade={{ delay: 600 }}>
       {@html renderBlockText(data.content.content)}
     </div>
   {/if}
 </div>
 
-<style lang="scss">
-  header {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    user-select: none;
-
-    .section-title {
-      background: #8c8c8b;
-      color: white;
-      padding: 4px;
-    }
-  }
-
-  img {
-    width: 400px;
-  }
+<style lang="scss" global>
+  @import "src/lib/style/variables.scss";
 
   .work {
     width: 50%;
-    margin-top: 20px;
+    margin-top: $MARGIN * 2;
 
-    h1 {
-      font-size: 30px;
-      color: white;
-      background: #8c8c8b;
-      display: inline-block;
-    }
-
-    h2,
-    p {
-      color: white;
-      background: #8c8c8b;
-    }
-
-    .short-description {
-      color: white;
-      background: #8c8c8b;
-      font-size: 16px;
-    }
-
-    h2 {
-      margin: 0;
-    }
-
-    .image {
+    @include screen-size("small") {
       width: 100%;
-      aspect-ratio: 16 / 9;
+    }
+
+    .text {
+      line-height: $FONT_SIZE_SMALL;
+
+      .title {
+        text-transform: uppercase;
+        font-size: $FONT_SIZE_LARGE;
+        line-height: $FONT_SIZE_LARGE;
+        color: $white;
+        background: $grey;
+        display: inline;
+      }
+
+      .short-description {
+        color: $white;
+        background: $grey;
+        font-size: $FONT_SIZE_SMALL;
+        line-height: $FONT_SIZE_SMALL;
+        display: inline;
+      }
+    }
+
+    .video {
+      margin-top: $MARGIN;
+      width: 100%;
       line-height: 0;
+      background: $grey;
 
       img {
         object-fit: fill;
         width: 100%;
         height: 100%;
       }
+    }
+  }
+
+  .work-content {
+    font-size: $FONT_SIZE_SMALL;
+    line-height: 1em;
+    margin-top: $MARGIN;
+    margin-bottom: $MARGIN * 3;
+
+    p {
+      margin-top: 0;
+      max-width: 90ch;
+      color: $grey;
+      letter-spacing: -0.02em;
     }
   }
 </style>

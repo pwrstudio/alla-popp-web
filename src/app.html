@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+	<title>ALLA POPP</title>
 	<meta charset="utf-8" />
 	<link rel="icon" href="%sveltekit.assets%/favicon.png" />
 	<meta name="viewport" content="width=device-width" />
@@ -16,24 +17,22 @@
 			font-display: swap;
 		}
 
-		h2,
+		/* h2,
 		p {
-			color: white;
-			background: #8c8c8b;
+			color: $white;
+			background: $grey;
 		}
 
-
-
 		p {
-			font-size: 16px;
+			font-size: $FONT_SIZE_LARGE
 			line-height: 1rem;
-		}
+		} */
 	</style>
 
 	%sveltekit.head%
 </head>
 
-<body>
+<body data-sveltekit-prefetch>
 	<div style="display: contents">%sveltekit.body%</div>
 </body>
 

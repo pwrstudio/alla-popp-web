@@ -1,64 +1,69 @@
 <script lang="ts">
-  import Back from "$lib/graphics/back.svelte"
+  import { fade } from "svelte/transition"
+  import Header from "$lib/components/Header.svelte"
   import { renderBlockText } from "$lib/modules/sanity.js"
   export let data
 </script>
 
-<header>
-  <div class="section-title">CV</div>
-  <a class="back" href="/"><Back /></a>
-</header>
+<Header title="CV" link="/" />
 
-<h1>{data.title}</h1>
-<h2>{data.bio}</h2>
+<div class="cv">
+  <h1 in:fade={{ delay: 200 }}>{data.title}</h1>
+  <div in:fade={{ delay: 200 }}>
+    <span class="bio">{data.bio}</span>
+  </div>
 
-<div>
-  {@html renderBlockText(data.content.content)}
+  <div class="cv-content" in:fade={{ delay: 400 }}>
+    {@html renderBlockText(data.content.content)}
+  </div>
 </div>
 
-<style lang="scss">
-  header {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    user-select: none;
+<style lang="scss" global>
+  @import "src/lib/style/variables.scss";
 
-    .section-title {
-      background: #8c8c8b;
-      color: white;
-      padding: 4px;
-    }
-  }
+  .cv {
+    margin-top: $MARGIN * 2;
 
-  img {
-    width: 400px;
-  }
+    .cv-content {
+      font-size: $FONT_SIZE_SMALL;
+      line-height: 1em;
+      margin-top: $MARGIN;
+      margin-bottom: $MARGIN * 3;
 
-  .work {
-    width: 50%;
-    margin-top: 20px;
-
-    h2,
-    h1,
-    p {
-      color: white;
-      background: #8c8c8b;
-    }
-
-    h2 {
-      margin: 0;
-    }
-
-    .image {
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      line-height: 0;
-
-      img {
-        object-fit: fill;
-        width: 100%;
-        height: 100%;
+      h2 {
+        font-size: $FONT_SIZE_SMALL;
+        line-height: 1em;
+        color: $white;
+        text-transform: uppercase;
+        background: $grey;
+        display: inline-block;
+        margin: 0;
       }
+
+      p {
+        margin-top: 0;
+        max-width: 90ch;
+        color: $grey;
+        letter-spacing: -0.02em;
+      }
+    }
+
+    h1 {
+      font-size: $FONT_SIZE_LARGE;
+      color: $white;
+      background: $grey;
+      display: inline-block;
+      margin: 0;
+      text-transform: uppercase;
+    }
+
+    .bio {
+      font-size: $FONT_SIZE_SMALL;
+      color: $white;
+      background: $grey;
+      display: inline;
+      margin: 0;
+      padding: 0;
     }
   }
 </style>

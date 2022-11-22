@@ -6,19 +6,6 @@
   viewBox="0 0 3185.93 928.84"
 >
   <defs>
-    <style>
-      .cls-1 {
-        fill: none;
-      }
-
-      .cls-2 {
-        clip-path: url(#clippath);
-      }
-
-      .cls-3 {
-        fill: #fff;
-      }
-    </style>
     <clipPath id="clippath">
       <rect class="cls-1" width="3185.93" height="928.84" />
     </clipPath>
@@ -60,3 +47,17 @@
     </g>
   </g>
 </svg>
+
+<style>
+  .cls-1 {
+    fill: none;
+  }
+
+  .cls-2 {
+    clip-path: url(#clippath);
+  }
+
+  .cls-3 {
+    fill: #fff;
+  }
+</style>

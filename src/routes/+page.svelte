@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Logo from "$lib/graphics/logo.svelte"
+  import Logo from "$lib/graphics/Logo.svelte"
 </script>
 
 <div class="landing-page">
@@ -17,8 +17,8 @@
   </div>
 
   <div class="menu right">
-    <a class="menu-item" href="/">LINKTR.EE</a>
-    <a class="menu-item" href="/">@ALLAPOPP</a>
+    <a class="menu-item" href="/" target="_blank">LINKTR.EE</a>
+    <a class="menu-item" href="/" target="_blank">@ALLAPOPP</a>
   </div>
 
   <div class="background-animation">
@@ -41,12 +41,24 @@
 </div>
 
 <style lang="scss" global>
-  body,
-  html {
+  @import "src/lib/style/variables.scss";
+
+  body {
     font-family: "Alte Haas Grotesk";
-    font-size: 30px;
-    letter-spacing: -0.04em;
+    font-size: $FONT_SIZE_LARGE;
     line-height: 1em;
+    margin: $MARGIN;
+  }
+
+  *::-moz-selection {
+    /* Code for Firefox */
+    color: $white;
+    background: $grey;
+  }
+
+  *::selection {
+    color: $white;
+    background: $grey;
   }
 
   * {
@@ -60,9 +72,9 @@
 
   .logo {
     position: fixed;
-    width: 90vw;
+    width: 85vw;
     left: 50%;
-    top: 10px;
+    top: $MARGIN;
     transform: translateX(-50%);
     z-index: 10;
   }
@@ -75,8 +87,8 @@
     transform: rotateZ(90deg);
     transform-origin: top left;
     text-transform: uppercase;
-    color: white;
-    font-size: 14px;
+    color: $white;
+    font-size: $FONT_SIZE_SMALL;
     display: none;
   }
 
@@ -87,7 +99,7 @@
     width: calc(100vw + 200px);
     height: calc(100vh + 200px);
     z-index: 1;
-    background: black;
+    background: $black;
     iframe {
       width: calc(100vw + 200px);
       height: calc(100vh + 200px);
@@ -116,28 +128,33 @@
 
   .menu {
     position: fixed;
-    bottom: 20px;
+    bottom: $MARGIN;
     z-index: 1000;
     display: flex;
     flex-direction: column;
+    user-select: none;
 
     &.left {
-      left: 20px;
+      left: $MARGIN;
       align-items: flex-start;
     }
 
     &.right {
-      right: 20px;
+      right: $MARGIN;
       align-items: flex-end;
     }
 
     .menu-item {
       display: inline-block;
-      color: white;
-      background: #8c8c8b;
+      color: $white;
+      background: $grey;
       text-decoration: none;
       letter-spacing: -0.05em;
       padding: 0 4px;
+
+      &:hover {
+        color: $off-white;
+      }
     }
   }
 </style>
