@@ -1,10 +1,10 @@
 <script lang="ts">
-  import Logo from "$lib/graphics/Logo.svelte"
+  import AllaPopp from "$lib/graphics/AllaPopp.svelte"
 </script>
 
 <div class="landing-page">
   <div class="logo">
-    <Logo />
+    <AllaPopp />
   </div>
 
   <div class="portrait">
