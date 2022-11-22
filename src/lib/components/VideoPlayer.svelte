@@ -2,9 +2,10 @@
   import { urlFor } from "$lib/modules/sanity.js"
   import getVideoId from "get-video-id"
   import PlayArrow from "$lib/graphics/PlayArrow.svelte"
+  import type { ImageSchemaType } from "@sanity/types"
 
   export let url: string
-  export let poster
+  export let poster: ImageSchemaType
 
   let videoActive = false
 

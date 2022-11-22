@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Back from "$lib/graphics/Back.svelte"
+  import BackButton from "$lib/graphics/BackButton.svelte"
   export let title: string
   export let link = "/"
   export let titleLink = ""
@@ -11,7 +11,7 @@
   {:else}
     <div class="section-title">{title}</div>
   {/if}
-  <a class="back" href={link}><Back /></a>
+  <a class="back" href={link}><BackButton /></a>
 </header>
 
 <style lang="scss">

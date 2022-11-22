@@ -297,7 +297,7 @@ function serialize_data_node(node) {
     uses.push(`"route":1`);
   if (node.uses.url)
     uses.push(`"url":1`);
-  return `{"type":"data","data":${stringified},"uses":{${uses.join(",")}}}`;
+  return `{"type":"data","data":${stringified},"uses":{${uses.join(",")}}${node.slash ? `,"slash":${JSON.stringify(node.slash)}` : ""}}`;
 }
 async function render_endpoint(event, mod, state) {
   const method = event.request.method;
@@ -588,7 +588,8 @@ async function load_server_data({ event, state, node, parent }) {
   return {
     type: "data",
     data,
-    uses
+    uses,
+    slash: node.server.trailingSlash
   };
 }
 async function load_data({
@@ -855,7 +856,7 @@ function sha256(data) {
   if (!key[0])
     precompute();
   const out = init.slice(0);
-  const array2 = encode(data);
+  const array2 = encode$1(data);
   for (let i = 0; i < array2.length; i += 16) {
     const w = array2.subarray(i, i + 16);
     let tmp;
@@ -936,7 +937,7 @@ function reverse_endianness(bytes) {
     bytes[i + 3] = a;
   }
 }
-function encode(str) {
+function encode$1(str) {
   const encoded = encoder.encode(str);
   const length = encoded.length * 8;
   const size = 512 * Math.ceil((length + 65) / 512);
@@ -1237,7 +1238,7 @@ async function render_response({
           uses.push(`route:1`);
         if (server_data.uses.url)
           uses.push(`url:1`);
-        return `{type:"data",data:${data},uses:{${uses.join(",")}}}`;
+        return `{type:"data",data:${data},uses:{${uses.join(",")}}${server_data.slash ? `,slash:${s(server_data.slash)}` : ""}}`;
       }
       return s(server_data);
     }).join(",")}]`;
@@ -1309,7 +1310,6 @@ async function render_response({
 				}` : "null"},
 				paths: ${s(options.paths)},
 				target: document.querySelector('[data-sveltekit-hydrate="${target}"]').parentNode,
-				trailing_slash: ${s(options.trailing_slash)},
 				version: ${s(options.version)}
 			});
 		`;
@@ -1702,7 +1702,7 @@ function once(fn) {
   };
 }
 const INVALIDATED_HEADER = "x-sveltekit-invalidated";
-async function render_data(event, route, options, state) {
+async function render_data(event, route, options, state, trailing_slash) {
   var _a;
   if (!route.page) {
     return new Response(void 0, {
@@ -1714,7 +1714,7 @@ async function render_data(event, route, options, state) {
     const invalidated = ((_a = event.request.headers.get(INVALIDATED_HEADER)) == null ? void 0 : _a.split(",").map(Boolean)) ?? node_ids.map(() => true);
     let aborted = false;
     const url = new URL(event.url);
-    url.pathname = normalize_path(strip_data_suffix(url.pathname), options.trailing_slash);
+    url.pathname = normalize_path(strip_data_suffix(url.pathname), trailing_slash);
     const new_event = { ...event, url };
     const functions = node_ids.map((n, i) => {
       return once(async () => {
@@ -1802,15 +1802,17 @@ function json_response(json2, status = 200) {
   });
 }
 const cookie_paths = {};
-function get_cookies(request, url, options) {
+const encode = encodeURIComponent;
+const decode = decodeURIComponent;
+function get_cookies(request, url, dev, trailing_slash) {
   const header = request.headers.get("cookie") ?? "";
-  const initial_cookies = parse(header);
+  const initial_cookies = parse(header, { decode });
   const normalized_url = normalize_path(
     has_data_suffix(url.pathname) ? strip_data_suffix(url.pathname) : url.pathname,
-    options.trailing_slash
+    trailing_slash
   );
   const default_path = normalized_url.split("/").slice(0, -1).join("/") || "/";
-  if (options.dev) {
+  if (dev) {
     for (const name of Object.keys(cookie_paths)) {
       cookie_paths[name] = new Set(
         [...cookie_paths[name]].filter(
@@ -1837,10 +1839,10 @@ function get_cookies(request, url, options) {
       if (c && domain_matches(url.hostname, c.options.domain) && path_matches(url.pathname, c.options.path)) {
         return c.value;
       }
-      const decode = (opts == null ? void 0 : opts.decode) || decodeURIComponent;
-      const req_cookies = parse(header, { decode });
+      const decoder = (opts == null ? void 0 : opts.decode) || decode;
+      const req_cookies = parse(header, { decode: decoder });
       const cookie = req_cookies[name];
-      if (!options.dev || cookie) {
+      if (!dev || cookie) {
         return cookie;
       }
       const paths = /* @__PURE__ */ new Set([...cookie_paths[name] ?? []]);
@@ -1864,7 +1866,7 @@ function get_cookies(request, url, options) {
           path
         }
       };
-      if (options.dev) {
+      if (dev) {
         cookie_paths[name] = cookie_paths[name] ?? /* @__PURE__ */ new Set();
         if (!value) {
           if (!cookie_paths[name].has(path) && cookie_paths[name].size > 0) {
@@ -1895,7 +1897,7 @@ function get_cookies(request, url, options) {
   function get_cookie_header(destination, header2) {
     const combined_cookies = {};
     for (const name in initial_cookies) {
-      combined_cookies[name] = initial_cookies[name];
+      combined_cookies[name] = encode(initial_cookies[name]);
     }
     for (const key2 in new_cookies) {
       const cookie = new_cookies[key2];
@@ -1903,12 +1905,13 @@ function get_cookies(request, url, options) {
         continue;
       if (!path_matches(destination.pathname, cookie.options.path))
         continue;
-      combined_cookies[cookie.name] = cookie.value;
+      const encoder2 = cookie.options.encode || encode;
+      combined_cookies[cookie.name] = encoder2(cookie.value);
     }
     if (header2) {
-      const parsed = parse(header2);
+      const parsed = parse(header2, { decode });
       for (const name in parsed) {
-        combined_cookies[name] = parsed[name];
+        combined_cookies[name] = encode(parsed[name]);
       }
     }
     return Object.entries(combined_cookies).map(([name, value]) => `${name}=${value}`).join("; ");
@@ -2082,24 +2085,10 @@ async function respond(request, options, state) {
       }
     }
   }
-  if ((route == null ? void 0 : route.page) && !is_data_request) {
-    const normalized = normalize_path(url.pathname, options.trailing_slash);
-    if (normalized !== url.pathname && !((_c = state.prerendering) == null ? void 0 : _c.fallback)) {
-      return new Response(void 0, {
-        status: 301,
-        headers: {
-          "x-sveltekit-normalize": "1",
-          location: (normalized.startsWith("//") ? url.origin + normalized : normalized) + (url.search === "?" ? "" : url.search)
-        }
-      });
-    }
-  }
+  let trailing_slash = void 0;
   const headers = {};
-  const { cookies, new_cookies, get_cookie_header } = get_cookies(request, url, options);
-  if (state.prerendering && !state.prerendering.fallback)
-    disable_search(url);
   const event = {
-    cookies,
+    cookies: null,
     fetch: null,
     getClientAddress: state.getClientAddress || (() => {
       throw new Error(
@@ -2131,7 +2120,6 @@ async function respond(request, options, state) {
     },
     url
   };
-  event.fetch = create_fetch({ event, options, state, get_cookie_header });
   const removed = (property, replacement, suffix = "") => ({
     get: () => {
       throw new Error(`event.${property} has been replaced by event.${replacement}` + suffix);
@@ -2161,83 +2149,39 @@ async function respond(request, options, state) {
     filterSerializedResponseHeaders: default_filter,
     preload: default_preload
   };
-  async function resolve(event2, opts) {
-    var _a2;
-    try {
-      if (opts) {
-        if ("transformPage" in opts) {
-          throw new Error(
-            "transformPage has been replaced by transformPageChunk \u2014 see https://github.com/sveltejs/kit/pull/5657 for more information"
-          );
-        }
-        if ("ssr" in opts) {
-          throw new Error(
-            "ssr has been removed, set it in the appropriate +layout.js instead. See the PR for more information: https://github.com/sveltejs/kit/pull/6197"
-          );
-        }
-        resolve_opts = {
-          transformPageChunk: opts.transformPageChunk || default_transform,
-          filterSerializedResponseHeaders: opts.filterSerializedResponseHeaders || default_filter,
-          preload: opts.preload || default_preload
-        };
-      }
-      if ((_a2 = state.prerendering) == null ? void 0 : _a2.fallback) {
-        return await render_response({
-          event: event2,
-          options,
-          state,
-          page_config: { ssr: false, csr: true },
-          status: 200,
-          error: null,
-          branch: [],
-          fetched: [],
-          resolve_opts
-        });
-      }
-      if (route) {
-        let response;
-        if (is_data_request) {
-          response = await render_data(event2, route, options, state);
-        } else if (route.endpoint && (!route.page || is_endpoint_request(event2))) {
-          response = await render_endpoint(event2, await route.endpoint(), state);
-        } else if (route.page) {
-          response = await render_page(event2, route, route.page, options, state, resolve_opts);
-        } else {
-          throw new Error("This should never happen");
-        }
-        return response;
-      }
-      if (state.initiator === GENERIC_ERROR) {
-        return new Response("Internal Server Error", {
-          status: 500
-        });
-      }
-      if (!state.initiator) {
-        return await respond_with_error({
-          event: event2,
-          options,
-          state,
-          status: 404,
-          error: new Error(`Not found: ${event2.url.pathname}`),
-          resolve_opts
-        });
-      }
-      if (state.prerendering) {
-        return new Response("not found", { status: 404 });
-      }
-      return await fetch(request);
-    } catch (error2) {
-      return handle_fatal_error(event2, options, error2);
-    } finally {
-      event2.cookies.set = () => {
-        throw new Error("Cannot use `cookies.set(...)` after the response has been generated");
-      };
-      event2.setHeaders = () => {
-        throw new Error("Cannot use `setHeaders(...)` after the response has been generated");
-      };
-    }
-  }
   try {
+    if (route && !is_data_request) {
+      if (route.page) {
+        const nodes = await Promise.all([
+          ...route.page.layouts.map((n) => n == void 0 ? n : options.manifest._.nodes[n]()),
+          options.manifest._.nodes[route.page.leaf]()
+        ]);
+        trailing_slash = get_option(nodes, "trailingSlash");
+      } else if (route.endpoint) {
+        const node = await route.endpoint();
+        trailing_slash = node.trailingSlash;
+      }
+      const normalized = normalize_path(url.pathname, trailing_slash ?? "never");
+      if (normalized !== url.pathname && !((_c = state.prerendering) == null ? void 0 : _c.fallback)) {
+        return new Response(void 0, {
+          status: 301,
+          headers: {
+            "x-sveltekit-normalize": "1",
+            location: (normalized.startsWith("//") ? url.origin + normalized : normalized) + (url.search === "?" ? "" : url.search)
+          }
+        });
+      }
+    }
+    const { cookies, new_cookies, get_cookie_header } = get_cookies(
+      request,
+      url,
+      options.dev,
+      trailing_slash ?? "never"
+    );
+    event.cookies = cookies;
+    event.fetch = create_fetch({ event, options, state, get_cookie_header });
+    if (state.prerendering && !state.prerendering.fallback)
+      disable_search(url);
     const response = await options.hooks.handle({
       event,
       resolve: (event2, opts) => resolve(event2, opts).then((response2) => {
@@ -2293,6 +2237,82 @@ async function respond(request, options, state) {
       return redirect_response(error2.status, error2.location);
     }
     return handle_fatal_error(event, options, error2);
+  }
+  async function resolve(event2, opts) {
+    var _a2;
+    try {
+      if (opts) {
+        if ("transformPage" in opts) {
+          throw new Error(
+            "transformPage has been replaced by transformPageChunk \u2014 see https://github.com/sveltejs/kit/pull/5657 for more information"
+          );
+        }
+        if ("ssr" in opts) {
+          throw new Error(
+            "ssr has been removed, set it in the appropriate +layout.js instead. See the PR for more information: https://github.com/sveltejs/kit/pull/6197"
+          );
+        }
+        resolve_opts = {
+          transformPageChunk: opts.transformPageChunk || default_transform,
+          filterSerializedResponseHeaders: opts.filterSerializedResponseHeaders || default_filter,
+          preload: opts.preload || default_preload
+        };
+      }
+      if ((_a2 = state.prerendering) == null ? void 0 : _a2.fallback) {
+        return await render_response({
+          event: event2,
+          options,
+          state,
+          page_config: { ssr: false, csr: true },
+          status: 200,
+          error: null,
+          branch: [],
+          fetched: [],
+          resolve_opts
+        });
+      }
+      if (route) {
+        let response;
+        if (is_data_request) {
+          response = await render_data(event2, route, options, state, trailing_slash ?? "never");
+        } else if (route.endpoint && (!route.page || is_endpoint_request(event2))) {
+          response = await render_endpoint(event2, await route.endpoint(), state);
+        } else if (route.page) {
+          response = await render_page(event2, route, route.page, options, state, resolve_opts);
+        } else {
+          throw new Error("This should never happen");
+        }
+        return response;
+      }
+      if (state.initiator === GENERIC_ERROR) {
+        return new Response("Internal Server Error", {
+          status: 500
+        });
+      }
+      if (!state.initiator) {
+        return await respond_with_error({
+          event: event2,
+          options,
+          state,
+          status: 404,
+          error: new Error(`Not found: ${event2.url.pathname}`),
+          resolve_opts
+        });
+      }
+      if (state.prerendering) {
+        return new Response("not found", { status: 404 });
+      }
+      return await fetch(request);
+    } catch (error2) {
+      return handle_fatal_error(event2, options, error2);
+    } finally {
+      event2.cookies.set = () => {
+        throw new Error("Cannot use `cookies.set(...)` after the response has been generated");
+      };
+      event2.setHeaders = () => {
+        throw new Error("Cannot use `setHeaders(...)` after the response has been generated");
+      };
+    }
   }
 }
 let base = "";
@@ -2409,8 +2429,7 @@ class Server {
       app_template,
       app_template_contains_nonce: false,
       error_template,
-      trailing_slash: "never",
-      version: "1669148094310"
+      version: "1669149241622"
     };
   }
   async init({ env }) {

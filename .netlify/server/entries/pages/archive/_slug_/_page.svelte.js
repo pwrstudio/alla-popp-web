@@ -38,7 +38,6 @@ const css = {
 const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   var _a;
   let { data } = $$props;
-  console.log(data);
   if ($$props.data === void 0 && $$bindings.data && data !== void 0)
     $$bindings.data(data);
   $$result.css.add(css);

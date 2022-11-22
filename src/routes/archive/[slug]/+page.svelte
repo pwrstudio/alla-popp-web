@@ -3,16 +3,16 @@
   import Header from "$lib/components/Header.svelte"
   import VideoPlayer from "$lib/components/VideoPlayer.svelte"
   import { renderBlockText } from "$lib/modules/sanity.js"
+  import type { ImageSchemaType } from "@sanity/types"
 
   interface Work {
     title: string
     shortDescription: string
     videoUrl: string
+    posterImage: ImageSchemaType
   }
 
   export let data: Work
-
-  console.log(data)
 </script>
 
 <Header title="ARCHIVE" link="/archive" titleLink="/archive" />
