@@ -2301,7 +2301,7 @@ function set_paths(paths) {
   base = paths.base;
   assets = paths.assets || base;
 }
-const app_template = ({ head, body, assets: assets2, nonce }) => '<!DOCTYPE html>\n<html lang="en">\n\n<head>\n	<meta charset="utf-8" />\n	<link rel="icon" href="' + assets2 + `/favicon.png" />
+const app_template = ({ head, body, assets: assets2, nonce }) => '<!DOCTYPE html>\n<html lang="en">\n\n<head>\n	<title>ALLA POPP</title>\n	<meta charset="utf-8" />\n	<link rel="icon" href="' + assets2 + `/favicon.png" />
 	<meta name="viewport" content="width=device-width" />
 
 	<style>
@@ -2313,9 +2313,20 @@ const app_template = ({ head, body, assets: assets2, nonce }) => '<!DOCTYPE html
 			font-style: normal;
 			font-display: swap;
 		}
+
+		/* h2,
+		p {
+			color: $white;
+			background: $grey;
+		}
+
+		p {
+			font-size: $FONT_SIZE_LARGE
+			line-height: 1rem;
+		} */
 	</style>
 
-	` + head + '\n</head>\n\n<body>\n	<div style="display: contents">' + body + "</div>\n</body>\n\n</html>";
+	` + head + '\n</head>\n\n<body data-sveltekit-prefetch>\n	<div style="display: contents">' + body + "</div>\n</body>\n\n</html>";
 const error_template = ({ status, message }) => '<!DOCTYPE html>\n<html lang="en">\n	<head>\n		<meta charset="utf-8" />\n		<title>' + message + `</title>
 
 		<style>
@@ -2399,7 +2410,7 @@ class Server {
       app_template_contains_nonce: false,
       error_template,
       trailing_slash: "never",
-      version: "1669048150831"
+      version: "1669148094310"
     };
   }
   async init({ env }) {

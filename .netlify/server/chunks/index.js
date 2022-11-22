@@ -103,9 +103,9 @@ function add_attribute(name, value, boolean) {
 }
 export {
   safe_not_equal as a,
-  escape as b,
+  add_attribute as b,
   create_ssr_component as c,
-  add_attribute as d,
+  escape as d,
   each as e,
   missing_component as m,
   noop as n,

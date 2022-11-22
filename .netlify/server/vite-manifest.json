@@ -34,7 +34,7 @@
       "_index.js"
     ],
     "css": [
-      "_app/immutable/assets/_page-38d011d0.css"
+      "_app/immutable/assets/_page-3928fefd.css"
     ]
   },
   "src/routes/archive/+page.svelte": {
@@ -43,10 +43,11 @@
     "isEntry": true,
     "imports": [
       "_index.js",
+      "_Header.js",
       "_sanity.js"
     ],
     "css": [
-      "_app/immutable/assets/_page-a822b05e.css"
+      "_app/immutable/assets/_page-86426102.css"
     ]
   },
   "src/routes/archive/+page.ts": {
@@ -63,10 +64,11 @@
     "isEntry": true,
     "imports": [
       "_index.js",
+      "_Header.js",
       "_sanity.js"
     ],
     "css": [
-      "_app/immutable/assets/_page-a822b05e.css"
+      "_app/immutable/assets/_page-07d0fb39.css"
     ]
   },
   "src/routes/archive/[slug]/+page.ts": {
@@ -83,7 +85,11 @@
     "isEntry": true,
     "imports": [
       "_index.js",
+      "_Header.js",
       "_sanity.js"
+    ],
+    "css": [
+      "_app/immutable/assets/_page-859230c0.css"
     ]
   },
   "src/routes/cv/+page.ts": {
@@ -96,6 +102,15 @@
   },
   "_index.js": {
     "file": "chunks/index.js"
+  },
+  "_Header.js": {
+    "file": "chunks/Header.js",
+    "imports": [
+      "_index.js"
+    ],
+    "css": [
+      "_app/immutable/assets/Header-bc4de270.css"
+    ]
   },
   "_sanity.js": {
     "file": "chunks/sanity.js"
