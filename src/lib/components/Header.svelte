@@ -22,6 +22,8 @@
     display: flex;
     justify-content: space-between;
     user-select: none;
+    font-size: $FONT_SIZE_LARGE;
+    line-height: 1em;
 
     .section-title {
       background: $grey;

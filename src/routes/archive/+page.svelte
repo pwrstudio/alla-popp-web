@@ -54,6 +54,8 @@
           font-size: $FONT_SIZE_LARGE;
           line-height: $FONT_SIZE_LARGE;
           display: inline;
+          padding-right: 6px;
+          margin-right: -6px;
         }
 
         .short-description {

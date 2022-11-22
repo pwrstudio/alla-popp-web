@@ -55,6 +55,7 @@
       display: inline-block;
       margin: 0;
       text-transform: uppercase;
+      line-height: 1em;
     }
 
     .bio {

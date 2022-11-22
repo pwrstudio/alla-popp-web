@@ -43,13 +43,6 @@
 <style lang="scss" global>
   @import "src/lib/style/variables.scss";
 
-  body {
-    font-family: "Alte Haas Grotesk";
-    font-size: $FONT_SIZE_LARGE;
-    line-height: 1em;
-    margin: $MARGIN;
-  }
-
   *::-moz-selection {
     /* Code for Firefox */
     color: $white;
@@ -59,15 +52,6 @@
   *::selection {
     color: $white;
     background: $grey;
-  }
-
-  * {
-    box-sizing: border-box;
-  }
-
-  a {
-    color: inherit;
-    text-decoration: none;
   }
 
   .logo {
@@ -133,6 +117,8 @@
     display: flex;
     flex-direction: column;
     user-select: none;
+    font-size: $FONT_SIZE_LARGE;
+    line-height: 1em;
 
     &.left {
       left: $MARGIN;
