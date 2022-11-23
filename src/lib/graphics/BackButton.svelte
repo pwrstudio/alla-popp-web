@@ -4,7 +4,7 @@
   xmlns="http://www.w3.org/2000/svg"
   xmlns:xlink="http://www.w3.org/1999/xlink"
   viewBox="0 0 137.6 127.6"
-  height="40"
+  height="50"
 >
   <defs>
     <clipPath id="clippath">

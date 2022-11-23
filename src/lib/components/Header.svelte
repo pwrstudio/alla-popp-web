@@ -11,8 +11,9 @@
   {:else}
     <div class="section-title">{title}</div>
   {/if}
-  <a class="back" href={link}><BackButton /></a>
 </header>
+
+<a class="back" href={link}><BackButton /></a>
 
 <style lang="scss">
   @import "src/lib/style/variables.scss";
@@ -29,6 +30,16 @@
       background: $grey;
       color: $white;
       padding: 4px;
+    }
+  }
+
+  .back {
+    position: absolute;
+    top: $MARGIN;
+    right: $MARGIN;
+
+    &:hover {
+      opacity: 0.8;
     }
   }
 </style>

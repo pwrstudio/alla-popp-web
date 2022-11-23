@@ -44,7 +44,7 @@
     {:else}
       <!-- POSTER IMAGE -->
       {#if poster}
-        <img src={urlFor(poster).quality(90).width(400).url()} />
+        <img src={urlFor(poster).quality(90).width(800).url()} />
       {/if}
       <div class="icon">
         <PlayArrow />
@@ -79,7 +79,7 @@
       z-index: 100;
       width: 70px;
       height: 70px;
-      border-radius: 50%;
+      // border-radius: 50%;
       background: $grey;
       line-height: 1.2em;
       display: flex;

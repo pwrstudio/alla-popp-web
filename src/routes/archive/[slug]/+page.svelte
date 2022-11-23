@@ -38,41 +38,42 @@
 
   .work {
     width: 50%;
-    margin-top: $MARGIN * 2;
+    margin-top: $MARGIN;
 
     @include screen-size("small") {
       width: 100%;
     }
 
     .text {
+      color: $white;
       line-height: $FONT_SIZE_SMALL;
+      margin-bottom: $MARGIN;
 
       .title {
         text-transform: uppercase;
-        font-size: $FONT_SIZE_LARGE;
-        line-height: $FONT_SIZE_LARGE;
-        color: $white;
         background: $grey;
+        font-size: $FONT_SIZE_LARGE;
+        line-height: $FONT_SIZE_LARGE + 7px;
         display: inline;
+        padding-right: 6px;
+        margin-right: -6px;
       }
 
       .short-description {
-        color: $white;
-        background: $grey;
         font-size: $FONT_SIZE_SMALL;
         line-height: $FONT_SIZE_SMALL;
-        display: inline;
+        background: $grey;
+        display: inline-block;
       }
     }
 
     .video {
-      margin-top: $MARGIN;
       width: 100%;
       line-height: 0;
       background: $grey;
 
       img {
-        object-fit: fill;
+        object-fit: cover;
         width: 100%;
         height: 100%;
       }
@@ -83,7 +84,7 @@
     font-size: $FONT_SIZE_SMALL;
     line-height: 1em;
     margin-top: $MARGIN;
-    margin-bottom: $MARGIN * 3;
+    margin-bottom: $MARGIN * 6;
 
     p {
       margin-top: 0;

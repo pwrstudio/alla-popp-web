@@ -43,17 +43,6 @@
 <style lang="scss" global>
   @import "src/lib/style/variables.scss";
 
-  *::-moz-selection {
-    /* Code for Firefox */
-    color: $white;
-    background: $grey;
-  }
-
-  *::selection {
-    color: $white;
-    background: $grey;
-  }
-
   .logo {
     position: fixed;
     width: 85vw;
@@ -61,19 +50,26 @@
     top: $MARGIN;
     transform: translateX(-50%);
     z-index: 10;
+
+    @include screen-size("small") {
+      width: 90vw;
+    }
   }
 
   .image-credits {
-    position: fixed;
-    right: 0px;
-    top: 10px;
     z-index: 10;
-    transform: rotateZ(90deg);
+    position: fixed;
+    right: $MARGIN;
+    top: $MARGIN;
+    transform: translateX(100%) rotateZ(90deg);
     transform-origin: top left;
     text-transform: uppercase;
     color: $white;
-    font-size: $FONT_SIZE_SMALL;
-    display: none;
+    font-size: $FONT_SIZE_TINY;
+
+    @include screen-size("small") {
+      display: none;
+    }
   }
 
   .background-animation {
@@ -119,6 +115,10 @@
     user-select: none;
     font-size: $FONT_SIZE_LARGE;
     line-height: 1em;
+
+    @include screen-size("small") {
+      font-size: $FONT_SIZE_LARGE_PHONE;
+    }
 
     &.left {
       left: $MARGIN;
