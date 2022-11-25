@@ -7,7 +7,7 @@
   export let url: string
   export let poster: ImageSchemaType
 
-  let videoActive = false
+  let videoActive = true
 
   const toggleVideo = () => {
     videoActive = !videoActive
@@ -23,7 +23,7 @@
           <iframe
             width="720"
             height="480"
-            src="https://www.youtube.com/embed/{getVideoId(url).id}?autoplay=1"
+            src="https://www.youtube.com/embed/{getVideoId(url).id}"
             frameborder="0"
             allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen
@@ -33,7 +33,7 @@
           <iframe
             width="720"
             height="480"
-            src="https://player.vimeo.com/video/{getVideoId(url).id}?autoplay=1"
+            src="https://player.vimeo.com/video/{getVideoId(url).id}"
             frameborder="0"
             color="#ffffff"
             allow="autoplay; fullscreen"

@@ -7,8 +7,6 @@
 
   interface Work {
     title: string
-    shortDescription: string
-    videoUrl: string
     posterImage: ImageSchemaType
   }
 
@@ -20,17 +18,21 @@
 <div class="work">
   <div class="text" in:fade={{ delay: 200 }}>
     <span class="title">{data.title},</span>
-    <span class="short-description">{data.shortDescription}</span>
+    <!-- <span class="short-description">{data.shortDescription}</span> -->
   </div>
   <!-- IMAGE -->
-  <div class="video" in:fade={{ delay: 400 }}>
-    <VideoPlayer url={data.videoUrl} poster={data.posterImage} />
-  </div>
-  {#if data.content?.content}
-    <div class="work-content" in:fade={{ delay: 600 }}>
-      {@html renderBlockText(data.content.content)}
+  {#each data.videos || [] as video}
+    <div class="video-container">
+      <div class="video" in:fade={{ delay: 400 }}>
+        <VideoPlayer url={video.videoUrl} />
+      </div>
+      {#if video.caption?.content}
+        <div class="work-content" in:fade={{ delay: 600 }}>
+          {@html renderBlockText(video.caption.content)}
+        </div>
+      {/if}
     </div>
-  {/if}
+  {/each}
 </div>
 
 <style lang="scss" global>
@@ -59,12 +61,12 @@
         margin-right: -6px;
       }
 
-      .short-description {
-        font-size: $FONT_SIZE_SMALL;
-        line-height: $FONT_SIZE_SMALL;
-        background: $grey;
-        display: inline-block;
-      }
+      // .short-description {
+      //   font-size: $FONT_SIZE_SMALL;
+      //   line-height: $FONT_SIZE_SMALL;
+      //   background: $grey;
+      //   display: inline-block;
+      // }
     }
 
     .video {
@@ -84,7 +86,7 @@
     font-size: $FONT_SIZE_SMALL;
     line-height: 1em;
     margin-top: $MARGIN;
-    margin-bottom: $MARGIN * 6;
+    margin-bottom: $MARGIN;
 
     p {
       margin-top: 0;

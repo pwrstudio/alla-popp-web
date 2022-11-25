@@ -206,6 +206,11 @@
     esbuild "^0.15.12"
     set-cookie-parser "^2.5.1"
 
+"@sveltejs/adapter-static@^1.0.0-next.48":
+  version "1.0.0-next.48"
+  resolved "https://registry.yarnpkg.com/@sveltejs/adapter-static/-/adapter-static-1.0.0-next.48.tgz#85c6ad2f1a8deaa50a7d156a1a5f024b9af0b52e"
+  integrity sha512-Z5Z+QZOav6D0KDeU3ReksGERJg/sX1k5OKWWXyQ11OwGErEEwSXHYRUyjaBmZEPeGzpVVGwwMUK8YWJlG/MKeA==
+
 "@sveltejs/kit@next":
   version "1.0.0-next.557"
   resolved "https://registry.yarnpkg.com/@sveltejs/kit/-/kit-1.0.0-next.557.tgz#606a707a2a17b57c0d1dd274840a62b9d9a66a4d"

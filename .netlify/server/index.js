@@ -2331,19 +2331,34 @@ const app_template = ({ head, body, assets: assets2, nonce }) => '<!DOCTYPE html
 				url('/fonts/AlteHaasGrotesk_Bold.woff') format('woff');
 			font-weight: bold;
 			font-style: normal;
-			font-display: swap;
 		}
 
-		/* h2,
-		p {
-			color: $white;
-			background: $grey;
+
+		* {
+			box-sizing: border-box;
 		}
 
-		p {
-			font-size: $FONT_SIZE_LARGE
-			line-height: 1rem;
-		} */
+		a {
+			color: inherit;
+			text-decoration: none;
+		}
+
+		body {
+			font-family: "Alte Haas Grotesk";
+			line-height: 1em;
+			margin: 15px;
+		}
+
+		*::-moz-selection {
+			/* Code for Firefox */
+			color: #ffffff;
+			background: #8c8c8b;
+		}
+
+		*::selection {
+			color: #ffffff;
+			background: #8c8c8b;
+		}
 	</style>
 
 	` + head + '\n</head>\n\n<body data-sveltekit-prefetch>\n	<div style="display: contents">' + body + "</div>\n</body>\n\n</html>";
@@ -2429,7 +2444,7 @@ class Server {
       app_template,
       app_template_contains_nonce: false,
       error_template,
-      version: "1669149241622"
+      version: "1669389160781"
     };
   }
   async init({ env }) {

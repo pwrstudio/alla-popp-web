@@ -14,7 +14,7 @@
         <span class="title">
           {work.title}{#if work.shortDescription},{/if}
         </span>
-        <span class="short-description">{work.shortDescription}</span>
+        <!-- <span class="short-description">{work.shortDescription}</span> -->
       </div>
       <div class="image">
         <img
@@ -66,12 +66,12 @@
           margin-right: -6px;
         }
 
-        .short-description {
-          font-size: $FONT_SIZE_SMALL;
-          line-height: $FONT_SIZE_SMALL;
-          background: $grey;
-          display: inline-block;
-        }
+        // .short-description {
+        //   font-size: $FONT_SIZE_SMALL;
+        //   line-height: $FONT_SIZE_SMALL;
+        //   background: $grey;
+        //   display: inline-block;
+        // }
       }
 
       .image {

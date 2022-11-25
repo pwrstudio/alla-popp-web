@@ -4,7 +4,7 @@ export const manifest = {
 	assets: new Set(["alla-popp-portrait.png","favicon.png","fonts/AlteHaasGrotesk_Bold.woff","fonts/AlteHaasGrotesk_Bold.woff2"]),
 	mimeTypes: {".png":"image/png",".woff":"font/woff",".woff2":"font/woff2"},
 	_: {
-		entry: {"file":"_app/immutable/start-7f67afaa.js","imports":["_app/immutable/start-7f67afaa.js","_app/immutable/chunks/index-f26643dc.js"],"stylesheets":[],"fonts":[]},
+		entry: {"file":"_app/immutable/start-49a1a957.js","imports":["_app/immutable/start-49a1a957.js","_app/immutable/chunks/index-f26643dc.js"],"stylesheets":[],"fonts":[]},
 		nodes: [
 			() => import('./nodes/0.js'),
 			() => import('./nodes/1.js'),
