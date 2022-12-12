@@ -13,6 +13,8 @@
   export let data: Work
 </script>
 
+<div class="background" />
+
 <Header title="ARCHIVE" link="/archive" titleLink="/archive" />
 
 <div class="work">
@@ -38,9 +40,22 @@
 <style lang="scss" global>
   @import "src/lib/style/variables.scss";
 
+  .background {
+    background: url("/dirt.png");
+    background-repeat: repeat;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+  }
+
   .work {
     width: 50%;
     margin-top: $MARGIN;
+    z-index: 100;
+    position: relative;
 
     @include screen-size("small") {
       width: 100%;

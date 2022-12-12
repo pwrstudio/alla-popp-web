@@ -15,12 +15,11 @@ import getVideoId from "get-video-id"
 // const SANITY_PROJECT_ID = import.meta.env.VITE_SANITY_ID
 const SANITY_PROJECT_ID = "8gukr4oo"
 
-
 export const client = sanityClient({
     projectId: SANITY_PROJECT_ID,
     dataset: "production",
-    apiVersion: '2022-10-20', // use a UTC date string
-    useCdn: false,
+    apiVersion: '2022-12-12', // use a UTC date string
+    useCdn: true,
 })
 
 const h = blocksToHtml.h
