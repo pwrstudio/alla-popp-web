@@ -31,6 +31,10 @@
 <style lang="scss">
   @import "src/lib/style/variables.scss";
 
+  svg {
+    cursor: pointer;
+  }
+
   .cls-1,
   .cls-2 {
     fill: none;

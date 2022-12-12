@@ -5,6 +5,8 @@
   export let data
 </script>
 
+<div class="background" />
+
 <Header title="ARCHIVE" link="/" />
 
 <div class="archive-container">
@@ -29,11 +31,24 @@
 <style lang="scss">
   @import "src/lib/style/variables.scss";
 
+  .background {
+    background: url("/dirt.png");
+    background-repeat: repeat;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+  }
+
   .archive-container {
     width: 100%;
     display: flex;
     flex-wrap: wrap;
     margin-top: $MARGIN;
+    z-index: 100;
+    position: relative;
 
     .archive-item {
       width: calc(50% - 8px);

@@ -17,8 +17,31 @@
   </div>
 
   <div class="menu right">
-    <a class="menu-item" href="/" target="_blank">LINKTR.EE</a>
-    <a class="menu-item" href="/" target="_blank">@ALLAPOPP</a>
+    <a class="menu-item" href="https://linktr.ee/allapopp/" target="_blank">
+      LINKTR.EE
+    </a>
+    <a
+      class="menu-item"
+      href="https://www.instagram.com/allapopp/"
+      target="_blank"
+    >
+      @ALLAPOPP
+    </a>
+  </div>
+
+  <div class="phone-menu">
+    <a class="menu-item" href="/archive">ARCHIVE</a>
+    <a class="menu-item" href="/cv">CV</a>
+    <a class="menu-item" href="https://linktr.ee/allapopp/" target="_blank">
+      LINKTR.EE
+    </a>
+    <a
+      class="menu-item"
+      href="https://www.instagram.com/allapopp/"
+      target="_blank"
+    >
+      @ALLAPOPP
+    </a>
   </div>
 
   <div class="background-animation">
@@ -117,7 +140,7 @@
     line-height: 1em;
 
     @include screen-size("small") {
-      font-size: $FONT_SIZE_LARGE_PHONE;
+      display: none;
     }
 
     &.left {
@@ -130,6 +153,36 @@
       align-items: flex-end;
     }
 
+    .menu-item {
+      display: inline-block;
+      color: $white;
+      background: $grey;
+      text-decoration: none;
+      letter-spacing: -0.05em;
+      padding: 0 4px;
+
+      &:hover {
+        color: $off-white;
+      }
+    }
+  }
+
+  .phone-menu {
+    position: fixed;
+    bottom: $MARGIN;
+    z-index: 1000;
+    flex-direction: column;
+    user-select: none;
+    font-size: $FONT_SIZE_LARGE;
+    line-height: 1em;
+    display: none;
+    width: 100%;
+    align-items: center;
+    left: 0;
+
+    @include screen-size("small") {
+      display: flex;
+    }
     .menu-item {
       display: inline-block;
       color: $white;

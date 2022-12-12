@@ -11,6 +11,8 @@
   export let data: CvData
 </script>
 
+<div class="background" />
+
 <Header title="CV" link="/" />
 
 <div class="cv">
@@ -29,8 +31,21 @@
 <style lang="scss" global>
   @import "src/lib/style/variables.scss";
 
+  .background {
+    background: url("/dirt.png");
+    background-repeat: repeat;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+  }
+
   .cv {
     margin-top: $MARGIN;
+    z-index: 100;
+    position: relative;
 
     .cv-content {
       font-size: $FONT_SIZE_SMALL;

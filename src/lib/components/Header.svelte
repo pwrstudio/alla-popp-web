@@ -25,6 +25,8 @@
     user-select: none;
     font-size: $FONT_SIZE_LARGE;
     line-height: 1em;
+    z-index: 1000;
+    position: relative;
 
     .section-title {
       background: $grey;
@@ -37,6 +39,8 @@
     position: absolute;
     top: $MARGIN;
     right: $MARGIN;
+    cursor: pointer;
+    z-index: 1000;
 
     &:hover {
       opacity: 0.8;
