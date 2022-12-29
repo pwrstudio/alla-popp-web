@@ -1,5 +1,6 @@
 <script lang="ts">
   import AllaPopp from "$lib/graphics/AllaPopp.svelte"
+  export let data
 </script>
 
 <div class="landing-page">
@@ -56,7 +57,7 @@
       execution-while-out-of-viewport
       execution-while-not-rendered
       web-share
-      src="https://sketchfab.com/models/5fed679b8e6047449325609223ee64b2/embed?autostart=1&camera=0"
+      src={data?.url || ""}
     />
   </div>
 
@@ -91,7 +92,10 @@
     font-size: $FONT_SIZE_TINY;
 
     @include screen-size("small") {
-      display: none;
+      top: 40%;
+      right: 5px;
+      transform: translateX(100%) rotateZ(90deg);
+      font-size: $FONT_SIZE_XTINY;
     }
   }
 
