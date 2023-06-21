@@ -9,7 +9,7 @@
   </div>
 
   <div class="portrait">
-    <img src="/alla-popp-portrait.png" alt="Alla Popp" />
+    <img src="/alla-popp-portrait.png" alt="ALLAPOPP" />
   </div>
 
   <div class="menu left">

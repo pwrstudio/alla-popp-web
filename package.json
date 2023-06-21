@@ -10,24 +10,23 @@
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
 	},
 	"devDependencies": {
-		"@sanity/types": "^2.35.0",
-		"@sveltejs/adapter-auto": "next",
-		"@sveltejs/adapter-netlify": "^1.0.0-next.84",
-		"@sveltejs/adapter-static": "^1.0.0-next.48",
-		"@sveltejs/kit": "next",
-		"node-sass": "^8.0.0",
-		"svelte": "^3.44.0",
-		"svelte-check": "^2.7.1",
-		"svelte-preprocess": "^4.10.6",
-		"tslib": "^2.3.1",
-		"typescript": "^4.7.4",
-		"vite": "^3.1.0"
+		"@sanity/types": "^3.12.2",
+		"@sveltejs/adapter-auto": "^2.1.0",
+		"@sveltejs/adapter-static": "^2.0.2",
+		"@sveltejs/kit": "1.20.4",
+		"svelte": "^3.59.2",
+		"svelte-check": "^3.4.3",
+		"svelte-preprocess": "^5.0.4",
+		"tslib": "^2.5.3",
+		"typescript": "^5.1.3",
+		"vite": "^4.3.9",
+		"sass": "^1.63.5"
 	},
 	"type": "module",
 	"dependencies": {
 		"@sanity/block-content-to-html": "^2.0.0",
-		"@sanity/client": "^3.4.1",
-		"@sanity/image-url": "^1.0.1",
+		"@sanity/client": "^6.1.3",
+		"@sanity/image-url": "^1.0.2",
 		"get-video-id": "^3.6.5",
 		"lodash": "^4.17.21"
 	}
